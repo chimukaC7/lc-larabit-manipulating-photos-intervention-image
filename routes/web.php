@@ -14,7 +14,14 @@ Route::get('/', function () {
 Route::post('/save', function (Request $request) {
     // $name = basename($request->photo->store('public'));
 
-    $name = Str::random(32) . '.jpg';
+    $name = Str::random(32) . '.jpg';//name of the image
+//     Image::make($request->photo)
+//         ->resize(200,300,function ($constraint){
+//             $constraint->aspectRatio();//image will be resized to the highest of the wid length while maintaining the aspect ratio of the image
+//         })
+//         //->crop(200, 200)
+//         ->save(storage_path('app/public/' . $name));
+
     // Image::make($request->photo)
     //     ->widen(200)
     //     ->crop(200, 200)
@@ -26,7 +33,7 @@ Route::post('/save', function (Request $request) {
 
     Image::make($request->photo)
         ->widen(800)
-        ->insert($watermark, 'bottom-right', 20, 20)
+        ->insert($watermark, 'bottom-right', 20, 20)//inserts one image into another,how far
         ->save(storage_path('app/public/' . $name));
 
     Photo::create([
